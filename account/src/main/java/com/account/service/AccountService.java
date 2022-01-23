@@ -1,4 +1,5 @@
 package com.account.service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,23 +8,28 @@ import org.springframework.stereotype.Service;
 
 import com.account.model.Account;
 import com.account.model.NewAccountRequest;
+import com.account.model.TransactionRequest;
+import com.account.proxy.TransactionServiceProxy;
 import com.account.repository.AccountRepository;
-
 
 @Service
 public class AccountService {
 	@Autowired
 	private AccountRepository accountRepo;
 
+	@Autowired
+	TransactionServiceProxy transactionServiceProxy;
+
 	public Account saveAccount(NewAccountRequest newAccountRequest) {
 
 		Long customerId = newAccountRequest.getCustomerId();
 		long initialCredit = newAccountRequest.getInitialCredit();
+		Account account = accountRepo.save(new Account(customerId, initialCredit));
+
 		if (initialCredit != 0) {
-			//TODO->Make a transaction call.
+			transactionServiceProxy.createTransaction(new TransactionRequest(account.getId(), initialCredit));
 		}
-		Account account = new Account(customerId, initialCredit);
-		return accountRepo.save(account);
+		return account;
 	}
 
 	public Optional<Account> fetcAccountById(Long id) {
