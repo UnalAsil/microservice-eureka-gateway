@@ -14,7 +14,7 @@ import com.transaction.model.TransactionRequest;
 import com.transaction.service.TransactionService;
 
 @RestController
-@RequestMapping("api/transactions")
+@RequestMapping("api/transaction/transactions")
 public class TransactionController {
 	@Autowired
 	TransactionService transactionService;
