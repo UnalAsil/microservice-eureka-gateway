@@ -12,7 +12,7 @@ import com.account.model.Customer;
 import com.account.service.CustomerService;
 
 @RestController
-@RequestMapping("api/customers")
+@RequestMapping("api/account/customers")
 public class CustomerController {
 
 	@Autowired

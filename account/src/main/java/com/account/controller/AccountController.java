@@ -15,7 +15,7 @@ import com.account.service.AccountService;
 
 
 @RestController
-@RequestMapping("api/accounts")
+@RequestMapping("api/account/accounts")
 public class AccountController {
 
 	@Autowired
