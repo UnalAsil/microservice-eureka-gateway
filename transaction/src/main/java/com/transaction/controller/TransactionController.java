@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,17 @@ public class TransactionController {
 	TransactionService transactionService;
 
 	@GetMapping
-	private List<Transaction> getAllCustomers() {
+	private List<Transaction> getAllTransactions() {
 		return transactionService.listTransactions();
 	}
 
 	@PostMapping
-	private Transaction saveCustomer(@RequestBody TransactionRequest transactionRequest) {
+	private Transaction saveTransaction(@RequestBody TransactionRequest transactionRequest) {
 		return transactionService.saveTransaction(transactionRequest);
+	}
+	
+	@GetMapping("/{accountId}")
+	private List<Transaction> listTransactionsByAccountId (@PathVariable Long accountId){
+		return transactionService.listTransactionsByAccountId(accountId);
 	}
 }
